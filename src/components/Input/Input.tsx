@@ -32,7 +32,7 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
       path: 'value',
     });
   }, [fieldName, registerField]);
-
+  console.log('error:', error);
   return (
     <Container isFocused={isFocused} isFilled={isFilled}>
       {Icon && <Icon size={20} />}
@@ -43,6 +43,7 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
         ref={inputRef}
         {...rest}
       />
+      {error}
     </Container>
   );
 };
