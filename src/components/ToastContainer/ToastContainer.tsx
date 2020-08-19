@@ -3,44 +3,32 @@ import React from 'react';
 import { FiAlertCircle, FiXCircle } from 'react-icons/fi';
 import { Container, Toast } from './ToastContainer.styles';
 
-const ToastContainer: React.FC = () => {
+import { ToastMessage } from '../../hooks/toastContext';
+
+interface ToastContainerData {
+  messages: ToastMessage[];
+}
+
+const ToastContainer: React.FC<ToastContainerData> = ({ messages }) => {
   return (
     <Container>
-      <Toast hasDescription>
-        <FiAlertCircle size={20} />
-        <div>
-          <strong> Erro! </strong>
-          <p>Não deu certo!!!!</p>
-        </div>
+      {messages.map(message => (
+        <Toast
+          key={message.id}
+          type={message.type}
+          hasDescription={!!message.description}
+        >
+          <FiAlertCircle size={20} />
+          <div>
+            <strong>{message.title}</strong>
+            {message.description && <p>{message.description}</p>}
+          </div>
 
-        <button type="button">
-          <FiXCircle size={18} />
-        </button>
-      </Toast>
-
-      <Toast type="success" hasDescription>
-        <FiAlertCircle size={20} />
-        <div>
-          <strong> Erro! </strong>
-          <p>Não deu certo!!!!</p>
-        </div>
-
-        <button type="button">
-          <FiXCircle size={18} />
-        </button>
-      </Toast>
-
-      <Toast type="error" hasDescription>
-        <FiAlertCircle size={20} />
-        <div>
-          <strong> Erro! </strong>
-          <p>Não deu certo!!!!</p>
-        </div>
-
-        <button type="button">
-          <FiXCircle size={18} />
-        </button>
-      </Toast>
+          <button type="button">
+            <FiXCircle size={18} />
+          </button>
+        </Toast>
+      ))}
     </Container>
   );
 };
